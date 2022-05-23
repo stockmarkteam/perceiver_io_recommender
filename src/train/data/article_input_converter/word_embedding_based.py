@@ -74,7 +74,7 @@ class StanfordSentenceSerializer:
         self.tokenizer = StanfordTokenizer()
 
     def run(self, sentence):
-        tokens = self.tokenizer.tokenize(sentence)
+        tokens = self.tokenizer.tokenize(sentence.lower())
         ids = [self.token2idx[x] for x in tokens if x in self.token2idx.keys()]
         return ids
 

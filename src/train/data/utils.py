@@ -25,6 +25,7 @@ ARTICLE_STACK_RULES = {
 
 
 def stack_article_inputs(article_inputs):
+    if article_inputs[0] == None: return None
     return ArticleInput(
         **{
             key: ARTICLE_STACK_RULES[key]([getattr(x, key) for x in article_inputs])

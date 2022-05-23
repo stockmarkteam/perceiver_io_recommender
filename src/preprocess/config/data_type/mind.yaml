@@ -1,5 +1,5 @@
 params:
-  dataset_name: amazon
+  dataset_name: mind
   dataset_type: small
   target_data_categories: 
     - train

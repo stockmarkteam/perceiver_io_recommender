@@ -59,6 +59,8 @@ Download [MIND dataset](https://msnews.github.io/) and put the zip file to a dir
 make sh
 ```
 
+## News Recommendation with MIND Dataset
+
 ## Preprocessing
 Run below command in container to do all necessary preprocessing.
 ```bash
@@ -100,6 +102,33 @@ Some of the optional parameters are listed below.
     * For dataLoader（default: `4`）
 
 This library uses [hydra](https://github.com/facebookresearch/hydra) as config manager and  everything in [config](src/train/config) can be overwritten from the command line.
+
+## Product Recommendation with Amazon Dataset
+
+## Preprocessing
+In the paper, we compared results with [DIEN](https://github.com/YafeiWu/DIEN), so we are going to convert data from their repository in order to make apple-to-apple comparison.
+
+First, download meta_Books.json from `http://snap.stanford.edu/data/amazon/productGraph/categoryFiles/` and put it under `dataset/amazon/books`.
+Then, download `local_train_splitByUser` and `local_test_splitByUser` from [DIEN](https://github.com/YafeiWu/DIEN) and put it under `dataset/amazon/books`.
+
+Finally, run below command: 
+```bash
+sh src/preprocess/scripts/amazon/preprocess_amazon.sh
+```
+## Training
+Training can be done in the same way as we do for news recommendation on MIND dataset:
+
+```bash
+pipenv run python3 -m src.train.main  dataset_name=amazon dataset_type=books hparams.n_negatives=1 model=perceiver_io hparams.word_pos_emb=True hparams.feat_type_emb=True dataset=precomputed hparams.article_attributes=[title,body,category]
+```
+
+## Category Recommendation with MIND Dataset
+
+If you already did preprocessing for news recommendation for MIND dataset, there is no extra preprocessing needed. To run training, please run below command:
+
+```bash
+pipenv run python3 -m src.train.main model=perceiver_io_category_prediction hparams_model=perceiver_io embedding_layer=word_embedding hparams.article_attributes=[title,body] hparams.classify_attr=category dataset=precomputed
+```
 
 ## Check training results
 ```

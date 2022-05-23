@@ -5,9 +5,11 @@ train:
   max_history_length: ${hparams.max_history_length}
   article_input_converter:
     _target_: src.train.data.article_input_converter.precomputed.ArticleInputConverter
+  classify_attr: ${hparams.classify_attr}
 valid:
   _target_: src.train.data.dataset.MindValidationDataset
   article_attributes: ${hparams.article_attributes}
   max_history_length: ${hparams.max_history_length}
   article_input_converter:
     _target_: src.train.data.article_input_converter.precomputed.ArticleInputConverter
+  classify_attr: ${hparams.classify_attr}

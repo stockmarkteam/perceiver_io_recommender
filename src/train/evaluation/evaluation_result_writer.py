@@ -7,6 +7,7 @@ class EvaluationResultWriter:
         self.phase_name = phase_name
 
     def run(self, result: EvaluationResult):
+        self.log(result, "acc")
         self.log(result, "auc")
         self.log(result, "mrr")
         self.log(result, "ndcg_5")

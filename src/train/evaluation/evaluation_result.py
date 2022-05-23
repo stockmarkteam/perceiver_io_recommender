@@ -7,6 +7,7 @@ import torch
 class EvaluationResult:
     targets: torch.Tensor
     predictions: torch.tensor
+    acc: float
     auc: float
     mrr: float
     ndcg_5: float

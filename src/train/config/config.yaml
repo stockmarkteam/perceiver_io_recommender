@@ -31,7 +31,7 @@ hparams:
     - body
     - category
     - subcategory
-
+  classify_attr:
   #for NRMS, NAML
   embedding_dim: 400
   attn_hidden_dim: 200

@@ -31,30 +31,44 @@ class Evaluator:
     def run(
         cls,
         result: InferenceResult,
+        classify = False
     ) -> EvaluationResult:
 
         predictions = result.predictions.numpy()
         targets = result.targets.numpy()
 
-        auc = metrics.roc_auc_score(targets, predictions)
+        if not classify:
+            auc = metrics.roc_auc_score(targets, predictions)
 
-        samplewise_predictions = [x.numpy() for x in result.predictions.split(result.n_candidates_per_sample)]
-        samplewise_targets = [x.numpy() for x in result.targets.split(result.n_candidates_per_sample)]
+            samplewise_predictions = [x.numpy() for x in result.predictions.split(result.n_candidates_per_sample)]
+            samplewise_targets = [x.numpy() for x in result.targets.split(result.n_candidates_per_sample)]
 
-        mrr = np.mean([mrr_score(y_true, y_score) for y_true, y_score in zip(samplewise_targets, samplewise_predictions)])
+            mrr = np.mean([mrr_score(y_true, y_score) for y_true, y_score in zip(samplewise_targets, samplewise_predictions)])
         
-        ndcg_5 = np.mean(
-            [ndcg_score(y_true, y_score, k=5) for y_true, y_score in zip(samplewise_targets, samplewise_predictions)]
-        )
-        ndcg_10 = np.mean(
-            [ndcg_score(y_true, y_score, k=10) for y_true, y_score in zip(samplewise_targets, samplewise_predictions)]
-        )
+            ndcg_5 = np.mean(
+                [ndcg_score(y_true, y_score, k=5) for y_true, y_score in zip(samplewise_targets, samplewise_predictions)]
+            )
+            ndcg_10 = np.mean(
+                [ndcg_score(y_true, y_score, k=10) for y_true, y_score in zip(samplewise_targets, samplewise_predictions)]
+            )
 
-        return EvaluationResult(
-            auc=auc,
-            mrr=mrr,
-            ndcg_5=ndcg_5,
-            ndcg_10=ndcg_10,
-            targets=targets,
-            predictions=predictions,
-        )
+            return EvaluationResult(
+                acc = 0,
+                auc=auc,
+                mrr=mrr,
+                ndcg_5=ndcg_5,
+                ndcg_10=ndcg_10,
+                targets=targets,
+                predictions=predictions,
+            )
+        else:
+            acc = metrics.accuracy_score(targets, predictions)
+            return EvaluationResult(
+                acc=acc,
+                auc=0,
+                mrr=0,
+                ndcg_5=0,
+                ndcg_10=0,
+                targets=targets,
+                predictions=predictions,
+            )

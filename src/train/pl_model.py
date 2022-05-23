@@ -16,7 +16,7 @@ class PlModel(pl.LightningModule):
     def __init__(self, conf):
         super().__init__()
         self.model = instantiate(conf.model)
-        self.loss_func = MultiTripletLoss()
+        self.loss_func = self.model.loss_func
         self.save_hyperparameters(dict(conf.hparams))
         self.automatic_optimization = False
 
@@ -28,7 +28,10 @@ class PlModel(pl.LightningModule):
         out = self.forward(candidates, histories, n_candidates_per_sample)
         if out == None: return
 
-        loss = self.loss_func(out, targets, n_candidates_per_sample)
+        if 'ClassificationModel' in str(self.model):
+            loss = self.loss_func(out, targets.type(torch.long))
+        else:
+            loss = self.loss_func(out, targets, n_candidates_per_sample)
 
         self.log("train_loss", loss, prog_bar=True)
         self.manual_backward(loss/self.hparams.accumulate_grad_batches)
@@ -62,8 +65,12 @@ class PlModel(pl.LightningModule):
 
     def _evaluation_epoch_end(self, outputs, phase_name):
         outputs = InferenceResultAggregator.run(outputs)
-        result = Evaluator.run(outputs)
-        EvaluationResultWriter(self, phase_name).run(result)
+        if 'ClassificationModel' in str(self.model):
+            result = Evaluator.run(outputs, classify=True)
+            EvaluationResultWriter(self, phase_name).run(result)
+        else:
+            result = Evaluator.run(outputs)
+            EvaluationResultWriter(self, phase_name).run(result)
 
     def configure_optimizers(self):
         if isinstance(self.hparams.optim, Sequence):

@@ -10,6 +10,7 @@ train:
     tokenizer_path: ${data_path.model}
     category_file_path: ${data_path.category}
     subcategory_file_path: ${data_path.subcategory}
+  classify_attr: ${hparams.classify_attr}
 valid:
   _target_: src.train.data.dataset.MindValidationDataset
   article_attributes: ${hparams.article_attributes}
@@ -21,3 +22,4 @@ valid:
     tokenizer_path: ${data_path.model}
     category_file_path: ${data_path.category}
     subcategory_file_path: ${data_path.subcategory}
+  classify_attr: ${hparams.classify_attr}

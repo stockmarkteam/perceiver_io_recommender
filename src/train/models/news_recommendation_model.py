@@ -25,9 +25,3 @@ class NewsRecommendationModel(torch.nn.Module):
                     ]
                 ).flatten()
 
-        #return torch.hstack(
-            #[
-                #torch.matmul(user, candidates.T)
-                #for user, candidates in zip(user_embeddings.split(1), userwise_candidates)
-            #]
-        #).flatten()
