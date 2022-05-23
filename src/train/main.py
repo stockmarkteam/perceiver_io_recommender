@@ -19,6 +19,7 @@ warnings.filterwarnings("ignore")
 def read_data(path_conf, choices):
     samples = pd.read_pickle(path_conf.samples)
     if choices.dataset == "precomputed":
+        print(path_conf.precomputed_articles)
         articles = pd.read_pickle(path_conf.precomputed_articles)
     else:
         articles = pd.read_pickle(path_conf.articles)

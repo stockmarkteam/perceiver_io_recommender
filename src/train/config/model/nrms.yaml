@@ -1,6 +1,6 @@
-_target_: mind_recommenders_pytorch.train.models.news_recommendation_model.NewsRecommendationModel
+_target_: src.train.models.news_recommendation_model.NewsRecommendationModel
 news_encoder:
-  _target_: mind_recommenders_pytorch.train.models.nrms.nrms_news_encoder.NrmsNewsEncoder
+  _target_: src.train.models.nrms.nrms_news_encoder.NrmsNewsEncoder
   token_embedding_layer: ${embedding_layer}
   article_attributes: ${hparams.article_attributes}
   output_dim: ${hparams.embedding_dim}
@@ -11,7 +11,7 @@ news_encoder:
   n_categories: ${hparams.n_categories}
   n_subcategories: ${hparams.n_subcategories}
 user_encoder:
-  _target_:  mind_recommenders_pytorch.train.models.nrms.nrms_user_encoder.NrmsUserEncoder
+  _target_:  src.train.models.nrms.nrms_user_encoder.NrmsUserEncoder
   embedding_dim: ${hparams.embedding_dim}
   attn_hidden_dim: ${hparams.attn_hidden_dim}
   p_dropout: ${hparams.p_dropout}

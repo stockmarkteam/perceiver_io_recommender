@@ -1,6 +1,6 @@
-_target_: mind_recommenders_pytorch.train.models.news_recommendation_model.NewsRecommendationModel
+_target_: src.train.models.news_recommendation_model.NewsRecommendationModel
 news_encoder:
-  _target_: mind_recommenders_pytorch.train.models.perceiver_io.perceiver_io_news_encoder.PerceiverIONewsEncoder
+  _target_: src.train.models.perceiver_io.perceiver_io_news_encoder.PerceiverIONewsEncoder
   token_embedding_layer: ${embedding_layer}
   article_attributes: ${hparams.article_attributes}
 
@@ -23,5 +23,5 @@ news_encoder:
   n_subcategories: ${hparams.n_subcategories}
 
 user_encoder:
-  _target_:  mind_recommenders_pytorch.train.models.perceiver_io.perceiver_io_user_encoder.PerceiverIOUserEncoder
+  _target_:  src.train.models.perceiver_io.perceiver_io_user_encoder.PerceiverIOUserEncoder
 

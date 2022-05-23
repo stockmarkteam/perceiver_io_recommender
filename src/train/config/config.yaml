@@ -10,17 +10,18 @@ defaults:
   - optional debug_run: disabled
   - _self_
 default_choices: ${hydra:runtime.choices}
+dataset_name: mind
 dataset_type: small
 num_workers: 4
 data_path:
   train:
-    samples: ${oc.env:WORKDIR}/dataset/mind/${dataset_type}/processed/train/behaviors.pkl
-    articles:  ${oc.env:WORKDIR}/dataset/mind/${dataset_type}/processed/train/articles.pkl
+    samples: ${oc.env:WORKDIR}/dataset/${dataset_name}/${dataset_type}/processed/train/behaviors.pkl
+    articles:  ${oc.env:WORKDIR}/dataset/${dataset_name}/${dataset_type}/processed/train/articles.pkl
   valid:
-    samples: ${oc.env:WORKDIR}/dataset/mind/${dataset_type}/processed/valid/behaviors.pkl
-    articles:  ${oc.env:WORKDIR}/dataset/mind/${dataset_type}/processed/valid/articles.pkl
-  category: ${oc.env:WORKDIR}/dataset/mind/${dataset_type}/processed/categories.txt
-  subcategory: ${oc.env:WORKDIR}/dataset/mind/${dataset_type}/processed/subcategories.txt
+    samples: ${oc.env:WORKDIR}/dataset/${dataset_name}/${dataset_type}/processed/valid/behaviors.pkl
+    articles:  ${oc.env:WORKDIR}/dataset/${dataset_name}/${dataset_type}/processed/valid/articles.pkl
+  category: ${oc.env:WORKDIR}/dataset/${dataset_name}/${dataset_type}/processed/categories.txt
+  subcategory: ${oc.env:WORKDIR}/dataset/${dataset_name}/${dataset_type}/processed/subcategories.txt
 hparams:
   # value of ${default_choices} becomes invalid under multiran setting (hydra v1.1):  https://github.com/facebookresearch/hydra/issues/1882
   model: ${default_choices.model}
@@ -52,16 +53,16 @@ data_loader:
     shuffle: True
     num_workers: ${num_workers}
     collate_fn:
-      _target_: mind_recommenders_pytorch.train.data.input_collator.InputCollator
+      _target_: src.train.data.input_collator.InputCollator
   valid:
     _target_: torch.utils.data.DataLoader
     batch_size: ${hparams.batch_size.valid}
     shuffle: False
     num_workers: ${num_workers}
     collate_fn:
-      _target_: mind_recommenders_pytorch.train.data.input_collator.InputCollator
+      _target_: src.train.data.input_collator.InputCollator
 pl_model:
-  _target_: mind_recommenders_pytorch.train.pl_model.PlModel
+  _target_: src.train.pl_model.PlModel
 trainer:
   _target_: pytorch_lightning.Trainer
   default_root_dir: "./"

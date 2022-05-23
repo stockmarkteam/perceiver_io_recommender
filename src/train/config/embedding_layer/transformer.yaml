@@ -1,4 +1,4 @@
-_target_: mind_recommenders_pytorch.train.models.layers.token_embedding_layer.transformer_based.TransformerBasedTokenEmbeddingLayer
+_target_: src.train.models.layers.token_embedding_layer.transformer_based.TransformerBasedTokenEmbeddingLayer
 model_path: 
   _target_: hydra.utils.to_absolute_path
   path: ${data_path.model}

@@ -99,7 +99,7 @@ Some of the optional parameters are listed below.
 * `num_workers`:
     * For dataLoader（default: `4`）
 
-This library uses [hydra](https://github.com/facebookresearch/hydra) as config manager and  everything in [config](mind_recommenders_pytorch/train/config) can be overwritten from the command line.
+This library uses [hydra](https://github.com/facebookresearch/hydra) as config manager and  everything in [config](src/train/config) can be overwritten from the command line.
 
 ## Check training results
 ```
