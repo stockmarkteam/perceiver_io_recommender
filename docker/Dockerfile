@@ -41,7 +41,7 @@ RUN apt update
 ENV DEBIAN_FRONTEND=noninteractive
 RUN apt install -y git tig vim wget curl procps build-essential tmux tzdata jq zip default-jre
 
-ENV WORKDIR /root/mind-recommenders-pytorch
+ENV WORKDIR /root/perceiver_io_recommender
 ENV PIPENV_VENV_IN_PROJECT 1
 ENV PIPENV_VERBOSITY -1
 ENV VIRTUAL_ENV ""

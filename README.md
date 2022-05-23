@@ -14,15 +14,15 @@ This code can be run from Docker on Linux environment. We confirmed that it runs
 ## Setting up
 ### 1. Clone the repository branch
 ```
-git clone --branch perceiver_io_recommender --recursive https://github.com/stockmarkteam/mind-recommenders-pytorch.git
+git clone --recursive https://github.com/stockmarkteam/perceiver_io_recommender.git
 ```
-**IMPORTANT NOTE:** Please be sure that you are cloning and working on perceiver_io_recommender branch. Main branch does not contain perceiver-io implementation
+
 ### 2. Setup environment parameters
 
 Environment parameters need to be written in `.env` file. You can simply copy it from `.env.sample` to work with default parameters.
 
 ```
-cd mind-recommenders-pytorch
+cd perceiver_io_recommender
 cp .env.sample .env
 ```
 

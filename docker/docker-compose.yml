@@ -1,8 +1,8 @@
 version: "3"
 services:
   app:
-    image: mind-recommenders-pytorch
-    container_name: mind-recommenders-pytorch
+    image: perceiver_io_recommender
+    container_name: perceiver_io_recommender
     tty: true
     build:
       context: ..
@@ -11,13 +11,13 @@ services:
       args:
         UID: ${UID}
     volumes: 
-      - ../:/root/mind-recommenders-pytorch/
+      - ../:/root/perceiver_io_recommender/
       - ~/.ssh:/root/.ssh:ro
       - ~/.gitconfig:/root/.gitconfig:ro
-      - ${DATASET_PATH}:/root/mind-recommenders-pytorch/dataset
-      - ${LOG_PATH}:/root/mind-recommenders-pytorch/logs
-      - ${MODEL_PATH}:/root/mind-recommenders-pytorch/models
-      - ${VENV_PATH}:/root/mind-recommenders-pytorch/.venv
+      - ${DATASET_PATH}:/root/perceiver_io_recommender/dataset
+      - ${LOG_PATH}:/root/perceiver_io_recommender/logs
+      - ${MODEL_PATH}:/root/perceiver_io_recommender/models
+      - ${VENV_PATH}:/root/perceiver_io_recommender/.venv
     ports:
       - ${JUPYTER_PORT}:${JUPYTER_PORT}
       - ${TENSORBOARD_PORT}:${TENSORBOARD_PORT}
