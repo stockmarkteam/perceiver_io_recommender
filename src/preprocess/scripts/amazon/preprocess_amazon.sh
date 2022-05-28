@@ -12,4 +12,5 @@ pipenv run preprocess params.dataset_name=amazon params.dataset_type=books targe
 
 ln -s ${PWD}/dataset/amazon/books/processed/train/article_inputs_word_embedding.pkl ${PWD}/dataset/amazon/books/processed/valid/article_inputs_word_embedding.pkl
 
-pipenv run python3 -m src.train.main  dataset_name=amazon dataset_type=books hparams.n_negatives=1 model=perceiver_io hparams.word_pos_emb=True hparams.feat_type_emb=True  hparams.article_attributes=[title,body,category] dataset=precomputed
+#TRAIN
+#pipenv run python3 -m src.train.main  dataset_name=amazon dataset_type=books hparams.n_negatives=1 model=perceiver_io hparams.word_pos_emb=True hparams.feat_type_emb=True  hparams.article_attributes=[title,body,category] dataset=precomputed
